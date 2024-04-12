@@ -57,6 +57,8 @@ public class DipendenteController {
     // PUT /dipendenti/{email}/avatar
     @PutMapping("/{email}/avatar")
     public Dipendente updateDipendenteAvatar(@PathVariable String email, @RequestParam("file") MultipartFile file) throws IOException {
+            System.out.println("File Name: " + file.getOriginalFilename());
+            System.out.println("File Size: " + file.getSize());
         if (!file.isEmpty()) {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
             String newAvatarUrl = (String) uploadResult.get("url");

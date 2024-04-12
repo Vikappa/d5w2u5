@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 @ControllerAdvice(assignableTypes = DipendenteController.class)
 public class DipendenteControllerAdvice {
@@ -30,6 +31,13 @@ public class DipendenteControllerAdvice {
     @ResponseBody
     public ApiError handleGeneralException(Exception ex, WebRequest request) {
         return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Errore generico: " + ex.getMessage(), request.getDescription(false));
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiError handleMissingServletRequestPartException(MissingServletRequestPartException ex, WebRequest request) {
+        return new ApiError(HttpStatus.BAD_REQUEST.value(), "Parte della richiesta mancante: " + ex.getRequestPartName(), request.getDescription(false));
     }
 
     public static class ApiError {

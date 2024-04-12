@@ -1,17 +1,23 @@
 package konstantinesoft.d5w2u5.configurations;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class CloudinaryConfig {
     @Bean
-    public Cloudinary cloudinary() {
-        return new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "${cloudinary.cloud_name}",
-                "api_key", "${cloudinary.api_key}",
-                "api_secret", "${cloudinary.api_secret}"
-        ));
+    public Cloudinary cloudinaryUploader(@Value("${cloudinary.name}") String name,
+                                         @Value("${cloudinary.key}") String key,
+                                         @Value("${cloudinary.secret}") String secret){
+        Map<String, String> configuration = new HashMap<>();
+        configuration.put("cloud_name",name);
+        configuration.put("api_key",key);
+        configuration.put("api_secret",secret);
+        return new Cloudinary(configuration);
     }
 }

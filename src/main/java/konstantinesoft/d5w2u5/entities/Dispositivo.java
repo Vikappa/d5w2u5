@@ -24,6 +24,6 @@ public class Dispositivo {
     private String stato;
 
     @ManyToOne
-    @JoinColumn(name = "dipendente_email", nullable = false)
+    @JoinColumn(name = "dipendente_email", nullable = true)
     private Dipendente dipendente;
 }
