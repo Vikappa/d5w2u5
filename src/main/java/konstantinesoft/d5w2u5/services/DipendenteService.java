@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DipendenteService {
     @Autowired
     private DipendenteDAO dipendenteRepository;
 
-    public Dipendente getDipendenteByEmail(String email) {
+    public Optional<Dipendente> getDipendenteByEmail(String email) {
         return dipendenteRepository.findByEmail(email);
     }
 
