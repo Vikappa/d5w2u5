@@ -1,5 +1,6 @@
 package konstantinesoft.d5w2u5.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,19 @@ public class Dispositivo {
     @Column(nullable = false)
     private String stato;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dipendente_email")
     private Dipendente dipendente;
+
+    @Override
+    public String toString() {
+        return "Dispositivo{" +
+                "id=" + id +
+                ", tipo='" + tipo + '\'' +
+                ", stato='" + stato + '\'' +
+                ", dipendenteEmail=" + (dipendente != null ? dipendente.getEmail() : "None") +
+                '}';
+    }
 }
 
