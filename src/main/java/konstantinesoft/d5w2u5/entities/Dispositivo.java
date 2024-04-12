@@ -1,9 +1,7 @@
 package konstantinesoft.d5w2u5.entities;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,16 +12,16 @@ import lombok.Setter;
 public class Dispositivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private int id;
 
-    @Column(name = "tipo", nullable = false)
+    @Column(nullable = false)
     private String tipo;
 
-    @Column(name = "stato", nullable = false)
+    @Column(nullable = false)
     private String stato;
 
-    @ManyToOne
-    @JoinColumn(name = "dipendente_email", nullable = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dipendente_email")
     private Dipendente dipendente;
 }
+
